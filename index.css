@@ -1,0 +1,24 @@
+body {
+	direction: rtl;
+background: #20262E;
+/* padding: 20px; */
+font-family: Helvetica;
+height: 100vh;
+}
+
+.playing {
+background: #fff;
+border-radius: 4px;
+text-align: center;
+transition: all 0.2s;
+/* margin: 0 auto; */
+/* width: 100%; */
+height: 100%;
+}
+
+.yellow{
+background: yellow;
+}
+.green{
+background: green;
+}
