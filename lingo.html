@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+		<title>lingo</title>
+	</head>
+	<body>
+		<style media="screen">
+			body {
+				direction: rtl;
+		  background: #20262E;
+		  /* padding: 20px; */
+		  font-family: Helvetica;
+			height: 100vh;
+		}
+
+		.playing {
+		  background: #fff;
+		  border-radius: 4px;
+		  text-align: center;
+		  transition: all 0.2s;
+		  /* margin: 0 auto; */
+		  /* width: 100%; */
+			height: 100%;
+		}
+
+		/* button {
+		  background: #0084ff;
+		  border: none;
+		  border-radius: 5px;
+		  padding: 8px 14px;
+		  font-size: 15px;
+		  color: #fff;
+		} */
+
+		.yellow{
+			background: yellow;
+		}
+		.green{
+			background: green;
+		}
+		.hidden{
+			display: none;
+		}
+		</style>
+
+		<div class="playing">
+			<h1>ברוכים הבאים ללינגו</h1>
+			<label for="length">אורך המילה?</label>
+			<div class="block">
+				<input type="radio" id="3" name="length" value="3">
+				<label for="3">3</label><br>
+			</div>
+			<input type="radio" id="4" name="length" value="4">
+			<label for="4">4</label><br>
+			<input type="radio" id="5" name="length" value="5">
+			<label for="5">5</label>
+			<button type="button" name="button">התחלה</button>
+		</div>
+		<div class="div1 hidden playing" id="banner-message">
+			<h1 class="text-4xl" id="word_num"></h1>
+			<input class="border w-11/12 h-12 text-3xl" id="input">
+			<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl">ניחוש</button>
+			<button id="share" type="button" name="button">share</button>
+			<!-- <a id="whatsapp" href="whatsapp://send?text=Hello%20World!">Hello, world!</a> -->
+			<p class="output text-3xl"></p>
+		</div>
+
+
+<script type="text/javascript">
+	// find elements
+	var arr = ["עולם", "תקווה"]
+	var word = arr[Math.floor(Math.random()*arr.length)]
+	var url = window.location.href
+	var url_param = url + "?w=" + ascii_to_hex(word)
+
+var banner = $("#banner-message")
+var button = $("button")
+var lingo = word
+var word_num = lingo.length
+
+$("#word_num").html(word_num + " אותיות")
+$("#share").click(function(event) {
+	$("body").append("<input id='temp' value='" + url_param + "'>")
+	var copyText = document.getElementById("temp");
+	copyText.select();
+	copyText.setSelectionRange(0, 99999)
+	document.execCommand("copy");
+	$("#temp").remove()
+});
+
+// handle click and add class
+button.on("click", function(){
+  var input = $("#input").val()
+  for (var i = 0; i < input.length; i++) {
+    $(".output").last().append("<span>" + input[i] + "</span>")
+  }
+  $("#input").val("")
+
+  var output =  $(".output").last().children()
+    console.log(output)
+ for (var i = 0; i < output.length; i++) {
+      if ( output.eq(i).html() == lingo[i]){
+      	output.eq(i).addClass('green')
+      }
+			else if (lingo.includes(output.eq(i).html())) {
+				output.eq(i).addClass('yellow')
+			}
+    }
+		banner.append("<p class='output text-3xl'></p>")
+})
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+// var param = getUrlParameter('a');
+// console.log(param);
+function ascii_to_hex(str)
+{
+	var arr1 = [];
+	for (var n = 0, l = str.length; n < l; n ++)
+	{
+		var hex = Number(str.charCodeAt(n)).toString(16);
+		arr1.push(hex);
+	}
+	return arr1.join('');
+}
+function hex_to_ascii(str)
+ {
+	var hex  = str.toString();
+	var str = '';
+	for (var n = 0; n < hex.length; n += 3) {
+		str += String.fromCharCode(parseInt(hex.substr(n, 3), 16));
+	}
+	return str;
+ }
+
+</script>
+
+
+</body>
+</html>
