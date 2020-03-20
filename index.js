@@ -1,12 +1,5 @@
 $(document).ready(function() {
-
-	var four = "csvs/four.csv"
-	var five = "csvs/five.csv"
-	var six = "csvs/six.csv"
-	var seven = "csvs/seven.csv"
-	var eight = "csvs/eight.csv"
-	var	nine = "csvs/nine.csv"
-	var data = []
+	var data
 	var url = "https://gnpashi.github.io/lingo/"
 	var lingo
 	var url_param
@@ -37,36 +30,25 @@ $("input[type='radio']").click(function(event) {
 	var length = $(this).val()
 	switch (parseInt(length)) {
 		case 4:
-			data_path = four
+			data = four
 			break;
 		case 5:
-			data_path = five
+			data = five
 			break;
 		case 6:
-			data_path = six
+			data = six
 			break;
 		case 7:
-			data_path = seven
+			data = seven
 			break;
 		case 8:
-			data_path = eight
+			data = eight
 			break;
 		case 9:
-			data_path = nine
+			data = nine
 			break;
 	}
 
-		$.ajax({
-			url: data_path,
-			async: false,
-			success: function (csvd) {
-					data = $.csv.toArrays(csvd);
-			},
-			dataType: "text",
-			complete: function () {
-					// call a function on complete
-			}
-	});
 	lingo = data[Math.floor(Math.random()*data.length)]
 	url_param = url + "?w=" + ascii_to_hex(lingo)
 	word_length = lingo.length
@@ -123,17 +105,29 @@ $("#share").click(function(event) {
 				$("#end").show().children('h1').last().append(lingo)
 			}
 			$("#game").children('p').first().children('span').html(lingo.length - guesses)
-			console.log(guesses);
 			for (var i = 0; i < input.length; i++) {
 				$(".output").last().append("<span>" + input[i] + "</span>")
 			}
 			$("#input").val("")
 			var output =  $(".output").last().children()
+			var ends = ['ם','ן','ף','ך','ץ']
+			var starts = ['מ','נ','פ','כ','צ']
 			for (var i = 0; i < output.length; i++) {
 				if ( output.eq(i).html() == lingo[i]){
 					output.eq(i).addClass('green rounded-lg')
 				}
+				else if (ends.includes(output.eq(i).html()) ) {
+					if (lingo.includes(starts[ends.indexOf(output.eq(i).html())])) {
+						output.eq(i).addClass('yellow rounded-lg')
+					}
+				}
+				else if (starts.includes(output.eq(i).html())) {
+					if (lingo.includes(ends[starts.indexOf(output.eq(i).html())])) {
+						output.eq(i).addClass('yellow rounded-lg')
+					}
+				}
 				else if (lingo.includes(output.eq(i).html())) {
+
 					output.eq(i).addClass('yellow rounded-lg')
 				}
 			}
@@ -159,16 +153,16 @@ $("#start_over").click(function(event) {
 		}
 	};
 	// ascii to hex for param
-	// function ascii_to_hex(str)
-	// {
-	// 	var arr1 = [];
-	// 	for (var n = 0, l = str.length; n < l; n ++)
-	// 	{
-	// 		var hex = Number(str.charCodeAt(n)).toString(16);
-	// 		arr1.push(hex);
-	// 	}
-	// 	return arr1.join('');
-	// }
+	function ascii_to_hex(str)
+	{
+		var arr1 = [];
+		for (var n = 0, l = str.length; n < l; n ++)
+		{
+			var hex = Number(str.charCodeAt(n)).toString(16);
+			arr1.push(hex);
+		}
+		return arr1.join('');
+	}
 	// hex to ascii for param
 	function hex_to_ascii(str)
 	{
