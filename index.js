@@ -159,16 +159,16 @@ $("#start_over").click(function(event) {
 		}
 	};
 	// ascii to hex for param
-	function ascii_to_hex(str)
-	{
-		var arr1 = [];
-		for (var n = 0, l = str.length; n < l; n ++)
-		{
-			var hex = Number(str.charCodeAt(n)).toString(16);
-			arr1.push(hex);
-		}
-		return arr1.join('');
-	}
+	// function ascii_to_hex(str)
+	// {
+	// 	var arr1 = [];
+	// 	for (var n = 0, l = str.length; n < l; n ++)
+	// 	{
+	// 		var hex = Number(str.charCodeAt(n)).toString(16);
+	// 		arr1.push(hex);
+	// 	}
+	// 	return arr1.join('');
+	// }
 	// hex to ascii for param
 	function hex_to_ascii(str)
 	{
