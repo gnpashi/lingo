@@ -19,15 +19,17 @@ $(document).ready(function() {
 	var url_param
 	var word_length
 	var invite
+	var guesses
 	var banner = $("#game")
 	var param = getUrlParameter("w")
 	if (param) {
-		$("#start").hide()
+		$("#start_button").hide()
 		$("#game").show()
 		lingo = hex_to_ascii(param)
 		word_length = lingo.length
 		$("#word_length").html(word_length + " אותיות")
 		url_param = url + "?w=" + ascii_to_hex(lingo)
+		$("#game").children('p').first().children('span').html(lingo.length)
 	}
 
 
@@ -54,10 +56,10 @@ $("input[type='radio']").click(function(event) {
 	url_param = url + "?w=" + ascii_to_hex(lingo)
 	word_length = lingo.length
 	$("#word_length").html(word_length + " אותיות")
+	$("#game").children('p').first().children('span').html(lingo.length)
 });
 
 var input = document.getElementById("input");
-
 input.addEventListener("keyup", function(event) {
   // Number 13 is the "Enter" key on the keyboard
   if (event.keyCode === 13) {
@@ -93,11 +95,20 @@ $("#share").click(function(event) {
 		}
 		else {
 			$("#error").hide("fast")
+			guesses = $(".output").length
 			if (input == lingo) {
 				$("#game").hide()
-				$("#start").hide()
-				$("#win").show().children('h1').last().append(lingo)
+				$("#start_button").hide()
+				$("#end").show().children('h1').last().append(lingo)
 			}
+			else if (lingo.length == guesses){
+				$("#game").hide()
+				$("#start_button").hide()
+				$("#end").show().children('h1').first().html("הפסדתם! לא נורא")
+				$("#end").show().children('h1').last().append(lingo)
+			}
+			$("#game").children('p').first().children('span').html(lingo.length - guesses)
+			console.log(guesses);
 			for (var i = 0; i < input.length; i++) {
 				$(".output").last().append("<span>" + input[i] + "</span>")
 			}
