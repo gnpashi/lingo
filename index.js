@@ -73,7 +73,7 @@ input.addEventListener("keyup", function(event) {
 $("#share").click(function(event) {
 	invite = "היי! אנחנו משחקים לינגו! אפשר להצטרף בקישור " + url_param
 	$(".share_buttons").toggle("fast")
-	$("#whatsapp").attr("href", invite);
+	$("#whatsapp").attr("href", "whatsapp://send?text=" + invite);
 });
 	// share link
 	$("#copy").click(function(event) {
