@@ -56,6 +56,17 @@ $("input[type='radio']").click(function(event) {
 	$("#word_length").html(word_length + " אותיות")
 });
 
+var input = document.getElementById("input");
+
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    $("#check_button").click();
+  }
+});
 
 $("#share").click(function(event) {
 	invite = "היי! אנחנו משחקים לינגו! אפשר להצטרף בקישור " + url_param
