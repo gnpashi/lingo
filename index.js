@@ -1,19 +1,12 @@
 $(document).ready(function() {
-// 	var data = []
-// 	$.ajax({
-//     url: "text.csv",
-//     async: false,
-//     success: function (csvd) {
-//         data = $.csv.toArrays(csvd);
-//     },
-//     dataType: "text",
-//     complete: function () {
-//         // call a function on complete
-//     }
-// });
-	var four = ["עולם", "רוחב"]
-	var five = ["שולחן", "מדינה"]
-	var six = ["מכנסים", "חולצות"]
+
+	var four = "csvs/four.csv"
+	var five = "csvs/five.csv"
+	var six = "csvs/six.csv"
+	var seven = "csvs/seven.csv"
+	var eight = "csvs/eight.csv"
+	var	nine = "csvs/nine.csv"
+	var data = []
 	var url = "https://gnpashi.github.io/lingo/"
 	var lingo
 	var url_param
@@ -44,15 +37,37 @@ $("input[type='radio']").click(function(event) {
 	var length = $(this).val()
 	switch (parseInt(length)) {
 		case 4:
-			lingo = four[Math.floor(Math.random()*four.length)]
+			data_path = four
 			break;
 		case 5:
-			lingo = five[Math.floor(Math.random()*five.length)]
+			data_path = five
 			break;
 		case 6:
-			lingo = six[Math.floor(Math.random()*six.length)]
+			data_path = six
+			break;
+		case 7:
+			data_path = seven
+			break;
+		case 8:
+			data_path = eight
+			break;
+		case 9:
+			data_path = nine
 			break;
 	}
+
+		$.ajax({
+			url: data_path,
+			async: false,
+			success: function (csvd) {
+					data = $.csv.toArrays(csvd);
+			},
+			dataType: "text",
+			complete: function () {
+					// call a function on complete
+			}
+	});
+	lingo = data[Math.floor(Math.random()*data.length)]
 	url_param = url + "?w=" + ascii_to_hex(lingo)
 	word_length = lingo.length
 	$("#word_length").html(word_length + " אותיות")
