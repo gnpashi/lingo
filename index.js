@@ -52,7 +52,6 @@ $("input[type='radio']").click(function(event) {
 			break;
 	}
 	url_param = url + "?w=" + ascii_to_hex(lingo)
-	console.log(url_param);
 	word_length = lingo.length
 	$("#word_length").html(word_length + " אותיות")
 });
@@ -83,6 +82,11 @@ $("#share").click(function(event) {
 		}
 		else {
 			$("#error").hide("fast")
+			if (input == lingo) {
+				$("#game").hide()
+				$("#start").hide()
+				$("#win").show().children('h1').last().append(lingo)
+			}
 			for (var i = 0; i < input.length; i++) {
 				$(".output").last().append("<span>" + input[i] + "</span>")
 			}
@@ -90,18 +94,20 @@ $("#share").click(function(event) {
 			var output =  $(".output").last().children()
 			for (var i = 0; i < output.length; i++) {
 				if ( output.eq(i).html() == lingo[i]){
-					output.eq(i).addClass('green')
+					output.eq(i).addClass('green rounded-lg')
 				}
 				else if (lingo.includes(output.eq(i).html())) {
-					output.eq(i).addClass('yellow')
+					output.eq(i).addClass('yellow rounded-lg')
 				}
 			}
-			banner.append("<p class='output text-3xl'></p>")
+			banner.append("<p class='output text-4xl'></p>")
 		}
 		$("#input").focus()
 	})
 
-
+$("#start_over").click(function(event) {
+	location.reload();
+});
 	// get param
 	function getUrlParameter(sParam) {
 		var sPageURL = window.location.search.substring(1),

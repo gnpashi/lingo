@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
+		<link href="https://fonts.googleapis.com/css?family=Miriam+Libre&display=swap" rel="stylesheet">
+		<script  src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
 	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
@@ -13,9 +13,9 @@
 		<title>lingo</title>
 	</head>
 	<body>
-		<div class="playing">
-			<h1 class="text-3xl">לינגו</h1>
-			<div id="start" class="">
+		<div class="playing h-full">
+			<h1 class="font-bold text-3xl bg-blue-500 text-white">לינגו</h1>
+			<div id="start" class="flex justify-center items-center h-90">
 				<button id="start_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" type="button" name="button">משחק חדש</button>
 				<div id="choose_word_length" class="hidden">
 					<h1 class="text-2xl">אורך המילה?</h1>
@@ -34,23 +34,26 @@
 						</div>
 					</div>
 				</div>
+				<div class="hidden playing" id="game">
+					<h1 class="text-4xl" id="word_length"></h1>
+					<input id="input" class="border w-11/12 h-12 text-3xl" >
+					<div class="hidden text-red-600" id="error">צריך לכתוב מילה באורך <span></span> אותיות</div>
+					<button id="check_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl">ניחוש</button>
+					<!-- <a id="whatsapp" href="whatsapp://send?text=Hello%20World!">Hello, world!</a> -->
+					<p class="output text-4xl"></p>
+				</div>
 			</div>
-			<div class="hidden playing" id="game">
-				<h1 class="text-4xl" id="word_length"></h1>
-				<input id="input" class="border w-11/12 h-12 text-3xl" >
-				<div class="hidden text-red-600" id="error">צריך לכתוב מילה באורך <span></span> אותיות</div>
-				<button id="check_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl">ניחוש</button>
-				<!-- <a id="whatsapp" href="whatsapp://send?text=Hello%20World!">Hello, world!</a> -->
-				<p class="output text-3xl"></p>
+			<div id="win" class="hidden z-50">
+				<h1 class="text-4xl">כל הכבוד!</h1>
+				<h1 class="text-4xl">המילה היא </h1>
+				<button id="start_over" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" type="button" name="button">משחק חדש</button>
 			</div>
 		</div>
 		<div class="share_buttons hidden fixed bottom-0 left-0 ml-10 w-24 h-14 rounded-lg mb-24 bg-blue-500">
 			<div class="flex ">
 				<button id="copy" class="share_buttons hidden m-5 text-white" type="button" name="button"><i class="gg-copy"></i></button>
 				<a id="whatsapp" class="share_buttons hidden m-1" href="" data-action="share/whatsapp/share"><img width="1000" src="whatsapp.svg" alt="whatsaoo"> </a>
-
 			</div>
-
 		</div>
 		<button id="share" class="text-white flex justify-center items-center w-16 h-16 rounded-full bg-blue-500 fixed bottom-0 left-0 m-5">
 			<i class="gg-share transform-left"></i>
