@@ -14,7 +14,7 @@ $(document).ready(function() {
 	var four = ["עולם", "רוחב"]
 	var five = ["שולחן", "מדינה"]
 	var six = ["מכנסים", "חולצות"]
-	var url = window.location.href
+	var url = "https://gnpashi.github.io/lingo/"
 	var lingo
 	var url_param
 	var word_length
