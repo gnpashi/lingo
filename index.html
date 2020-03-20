@@ -15,28 +15,46 @@
 	<body>
 		<div class="playing">
 			<h1 class="text-3xl">לינגו</h1>
-			<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" type="button" name="button">משחק חדש</button>
-			<div class="hidden">
-				<div class="block">
-					<input type="radio" id="4" name="length" value="4">
-					<label for="4">4</label><br>
+			<div id="start" class="">
+				<button id="start_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" type="button" name="button">משחק חדש</button>
+				<div id="choose_word_length" class="hidden">
+					<h1 class="text-2xl">אורך המילה?</h1>
+					<div class="flex w-full justify-center">
+						<div class="mx-2">
+							<input class="hidden" type="radio" id="4" name="length" value="4">
+							<label class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" for="4">4</label>
+						</div>
+						<div class="mx-2">
+							<input class="hidden" type="radio" id="5" name="length" value="5">
+							<label class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" for="5">5</label>
+						</div>
+						<div class="mx-2">
+							<input class="hidden" type="radio" id="6" name="length" value="6">
+							<label class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl" for="6">6</label>
+						</div>
+					</div>
 				</div>
-				<input type="radio" id="5" name="length" value="5">
-				<label for="5">5</label><br>
-				<input type="radio" id="6" name="length" value="6">
-				<label for="6">6</label>
 			</div>
-			<h1></h1>
+			<div class="hidden playing" id="game">
+				<h1 class="text-4xl" id="word_length"></h1>
+				<input id="input" class="border w-11/12 h-12 text-3xl" >
+				<div class="hidden text-red-600" id="error">צריך לכתוב מילה באורך <span></span> אותיות</div>
+				<button id="check_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl">ניחוש</button>
+				<!-- <a id="whatsapp" href="whatsapp://send?text=Hello%20World!">Hello, world!</a> -->
+				<p class="output text-3xl"></p>
+			</div>
 		</div>
-		<div class="div1 hidden playing" id="game">
-			<h1 class="text-4xl" id="word_num"></h1>
-			<input class="border w-11/12 h-12 text-3xl" id="input">
-			<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3 text-xl">ניחוש</button>
-			<button id="share" type="button" name="button">share</button>
-			<!-- <a id="whatsapp" href="whatsapp://send?text=Hello%20World!">Hello, world!</a> -->
-			<p class="output text-3xl"></p>
-		</div>
+		<div class="share_buttons hidden fixed bottom-0 left-0 ml-10 w-24 h-14 rounded-lg mb-24 bg-blue-500">
+			<div class="flex ">
+				<button id="copy" class="share_buttons hidden m-5 text-white" type="button" name="button"><i class="gg-copy"></i></button>
+				<a id="whatsapp" class="share_buttons hidden m-1" href="" data-action="share/whatsapp/share"><img width="1000" src="whatsapp.svg" alt="whatsaoo"> </a>
 
+			</div>
+
+		</div>
+		<button id="share" class="text-white flex justify-center items-center w-16 h-16 rounded-full bg-blue-500 fixed bottom-0 left-0 m-5">
+			<i class="gg-share transform-left"></i>
+		</button>
 <script src="jquery.csv.min.js"></script>
 <script src="index.js"></script>
 

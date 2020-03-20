@@ -1,33 +1,72 @@
 $(document).ready(function() {
-	var data = []
-	$.ajax({
-    url: "text.csv",
-    async: false,
-    success: function (csvd) {
-        data = $.csv.toArrays(csvd);
-    },
-    dataType: "text",
-    complete: function () {
-        // call a function on complete
-    }
-});
-	// var words = $.csv.toArray(text.csv);
-console.log(data);
-	var arr = ["עולם", "תקווה"]
-	var word = arr[Math.floor(Math.random()*arr.length)]
+// 	var data = []
+// 	$.ajax({
+//     url: "text.csv",
+//     async: false,
+//     success: function (csvd) {
+//         data = $.csv.toArrays(csvd);
+//     },
+//     dataType: "text",
+//     complete: function () {
+//         // call a function on complete
+//     }
+// });
+	var four = ["עולם", "רוחב"]
+	var five = ["שולחן", "מדינה"]
+	var six = ["מכנסים", "חולצות"]
 	var url = window.location.href
-	var url_param = url + "?w=" + ascii_to_hex(word)
+	var lingo
+	var url_param
+	var word_length
+	var invite
 	var banner = $("#game")
-	var button = $("button")
-	var lingo = word
-	var word_num = lingo.length
+	var param = getUrlParameter("w")
+	if (param) {
+		$("#start").hide()
+		$("#game").show()
+		lingo = hex_to_ascii(param)
+		word_length = lingo.length
+		$("#word_length").html(word_length + " אותיות")
+		url_param = url + "?w=" + ascii_to_hex(lingo)
+	}
 
-	// show how many letters
-	$("#word_num").html(word_num + " אותיות")
 
+
+	$("#start_button").click(function(event) {
+		$("#start_button").hide('fast')
+		$("#choose_word_length").show("fast")
+	});
+$("input[type='radio']").click(function(event) {
+	$("#choose_word_length").hide("fast")
+	$("#game").show("fast")
+	var length = $(this).val()
+	switch (parseInt(length)) {
+		case 4:
+			lingo = four[Math.floor(Math.random()*four.length)]
+			break;
+		case 5:
+			lingo = five[Math.floor(Math.random()*five.length)]
+			break;
+		case 6:
+			lingo = six[Math.floor(Math.random()*six.length)]
+			break;
+	}
+	url_param = url + "?w=" + ascii_to_hex(lingo)
+	console.log(url_param);
+	word_length = lingo.length
+	$("#word_length").html(word_length + " אותיות")
+});
+
+
+$("#share").click(function(event) {
+	invite = "היי! אנחנו משחקים לינגו! אפשר להצטרף בקישור " + url_param
+	$(".share_buttons").toggle("fast")
+	$("#whatsapp").attr("href", invite);
+});
 	// share link
-	$("#share").click(function(event) {
-		$("body").append("<input id='temp' value='" + url_param + "'>")
+	$("#copy").click(function(event) {
+		invite = "היי! אנחנו משחקים לינגו! אפשר להצטרף בקישור " + url_param
+		$("body").append("<input id='temp' value='" + invite + "'>")
 		var copyText = document.getElementById("temp");
 		copyText.select();
 		copyText.setSelectionRange(0, 99999)
@@ -36,26 +75,35 @@ console.log(data);
 	});
 
 	// check word
-	button.on("click", function(){
+	$("#check_button").on("click", function(){
 		var input = $("#input").val()
-		for (var i = 0; i < input.length; i++) {
-			$(".output").last().append("<span>" + input[i] + "</span>")
+		if (input.length != word_length) {
+			$("#error").show("fast")
+			$("#error").children('span').html(word_length)
 		}
-		$("#input").val("")
-		var output =  $(".output").last().children()
-		for (var i = 0; i < output.length; i++) {
-			if ( output.eq(i).html() == lingo[i]){
-				output.eq(i).addClass('green')
+		else {
+			$("#error").hide("fast")
+			for (var i = 0; i < input.length; i++) {
+				$(".output").last().append("<span>" + input[i] + "</span>")
 			}
-			else if (lingo.includes(output.eq(i).html())) {
-				output.eq(i).addClass('yellow')
+			$("#input").val("")
+			var output =  $(".output").last().children()
+			for (var i = 0; i < output.length; i++) {
+				if ( output.eq(i).html() == lingo[i]){
+					output.eq(i).addClass('green')
+				}
+				else if (lingo.includes(output.eq(i).html())) {
+					output.eq(i).addClass('yellow')
+				}
 			}
+			banner.append("<p class='output text-3xl'></p>")
 		}
-		banner.append("<p class='output text-3xl'></p>")
+		$("#input").focus()
 	})
 
+
 	// get param
-	var getUrlParameter = function getUrlParameter(sParam) {
+	function getUrlParameter(sParam) {
 		var sPageURL = window.location.search.substring(1),
 		sURLVariables = sPageURL.split('&'),
 		sParameterName,
@@ -67,7 +115,6 @@ console.log(data);
 			}
 		}
 	};
-
 	// ascii to hex for param
 	function ascii_to_hex(str)
 	{
